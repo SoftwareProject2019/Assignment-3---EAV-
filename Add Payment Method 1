@@ -1,0 +1,35 @@
+<?php
+$Connection = mysqli_connect("localhost","root","","eav");
+if(isset($_POST["Submit"])) { 
+//$MethodName=$_POST["MethodName"];
+$Query = "Insert into paymentmethod(Name) values ('".$_POST['MethodName']."')";
+
+$Result = mysqli_query($Connection, $Query);
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<form action="ctest.php" method="post">
+
+<label for="options">Options:</label>
+<?php 
+$Connection = mysqli_connect("localhost","root","","eav");
+
+$Query = "SELECT * FROM options";
+
+$Result = mysqli_query($Connection, $Query);
+
+
+		while($row = mysqli_fetch_array($Result))
+		{
+			echo "<input type='checkbox' name='option' value=".$row['Name'].">";
+			echo $row['Name'];
+		} 
+?>
+<br>
+
+<input type="submit" value="Submit" name="Submit">
+<input type="reset">
+</form>
+</html>
