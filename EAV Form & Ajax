@@ -1,0 +1,56 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+function ShowUser(str){
+       if (str == "") {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("txtHint").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","datatype.php?q="+str,true);
+        xmlhttp.send();
+    }
+}
+</script>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EAV Test</title>
+    </head>
+<body>
+    <h1>Select Payment Method !</h1>
+    <form method="post" action="datatype.php">
+    <select name="Method" onchange="ShowUser(this.value)">
+        <option value="Payment Method" selected>Payment Method</option>
+        <?php 
+        $Connection = new mysqli("localhost","root","","eav");
+
+if ($Connection->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+echo "OK!";
+echo "<br><br>";
+        $Query = "SELECT * FROM paymentmethod";
+        $Result = mysqli_query($Connection,$Query);
+        while($row = mysqli_fetch_array($Result)){
+
+            echo "<option value=".$row['id'].">" . $row['Name'] . "</option>";
+        }
+        ?>
+        </select>
+        <br><br>
+        <div id="txtHint"><b>Payment Method Info will be listed here...</b></div>
+    </form>
+    </body>
+</html>
