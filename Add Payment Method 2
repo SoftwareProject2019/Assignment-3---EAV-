@@ -1,0 +1,29 @@
+<?php 
+$Connection = mysqli_connect("localhost","root","","eav");
+
+$Query = "SELECT * FROM options";
+$Query2="SELECT * FROM paymentmethod";
+
+
+$Result = mysqli_query($Connection, $Query);
+$Result2=mysqli_query($Connection, $Query2);
+		while($row = mysqli_fetch_array($Result)){
+			$id=intval($row['id']);
+		}
+		while($row2 = mysqli_fetch_array($Result2)){
+			$id2=intval($row2['id']);
+		}
+		
+		//echo $id;
+		//echo"<br>";
+		//echo $id2;
+$Sql="INSERT INTO `paymentmethodoption`(`PaymentMethodID`, `OptionsID`) VALUES ('$id2','$id')
+";
+//$Sql="Insert into paymentmethodoption (PaymentMethodID, OptionsID) values('.$id2','123')";
+$xyz=mysqli_query($Connection, $Sql);
+if($xyz){
+	echo"Done";
+}
+else echo"No";
+
+?>
