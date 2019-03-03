@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html>
+<form action="pMethod.php" method="post">
+<label for="MethodName">Enter Payment Method Name:</label>
+<input type="text" name="MethodName" placeholder="Payment Method Name"required><br>
+<input type="submit" value="Submit" name="Submit">
+</form>
+</html>
