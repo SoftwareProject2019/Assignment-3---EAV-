@@ -1,0 +1,21 @@
+<?php
+include 'connection.php';
+  global $Connection; 
+$Method = $_GET['q'];
+
+$sql="select id from options where id=".$Method;
+$result1 = mysqli_query($Connection,$sql);
+//$Fetch = mysqli_fetch_array($result1);
+//$method_id=$Fetch['id'];
+while($row = mysqli_fetch_array($result1)){
+$id=$row['id'];
+
+$sql2="SELECT paymentmethodoption.* ,options.* FROM paymentmethodoption inner join options on paymentmethodoption.OptionsID=options.id where paymentmethodoption.PaymentMethodID=".$id;
+$result2 = mysqli_query($Connection,$sql2);
+while($row2 = mysqli_fetch_array($result2)){
+
+echo "<input type=".$row2['Type']." name='option' placeholder=".$row2['Name'].">";
+//echo $row2['Name'];
+}
+}
+?>
